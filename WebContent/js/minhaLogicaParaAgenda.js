@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 $(document).ready(function() {
 
@@ -16,21 +16,18 @@ function atualiza() {
 	let oldEmaList = contato.find("#emailTxt");
 
 	// modal atualiza
-let up = $('#up');
-let onde = up.find("#idPessoa").text(id);
-let setNome = up.find("#first_name").val(oldName.text());
+	let up = $('#up');
+	let onde = up.find("#idPessoa").text(id);
+	let setNome = up.find("#first_name").val(oldName.text());
 
-//Parece simples mas deu uma dorsinha de cabeça
-let setTel = up.find(".telChips");
-inserirChipsParaAtualizar(setTel,oldTelList);
+	// Parece simples mas deu uma dorsinha de cabeça
+	let setTel = up.find(".telChips");
+	inserirChipsParaAtualizar(setTel, oldTelList);
 
-let setEma = up.find('.emaChips');
-inserirChipsParaAtualizar(setEma,oldEmaList);
+	let setEma = up.find('.emaChips');
+	inserirChipsParaAtualizar(setEma, oldEmaList);
 
 } // Fim da function Atualiza
-
-
-
 
 // Deleta AJAX
 function deleta(id, nome) {
@@ -49,22 +46,21 @@ function deleta(id, nome) {
 function contato(condicao) {
 	console.log(condicao);
 	// tem que ser igual alguma coisa entre o servler e o id do modal
-	let c = $("#"+condicao);
+	let c = $("#" + condicao);
 	let gugu = c.find("#idPessoa").text();
 	let nome = c.find('#first_name').val() + ' ' + $('#last_name').val();
 	let telList = c.find('.telChips').material_chip('data').map(function(item) {
 		return item.tag;
 	});
 	let telStr = telList.toString();
-
 	let emaList = c.find('.emaChips').material_chip('data').map(function(item) {
 		return item.tag;
 	});
 	let emaStr = emaList.toString();
 
 	// AJAX
-	let servlet = condicao +"/contato";
-$.get(servlet, {
+	let servlet = condicao + "/contato";
+	$.get(servlet, {
 
 		idPessoa : gugu,
 		nome : nome,
@@ -76,7 +72,7 @@ $.get(servlet, {
 		if (result == 'true') {
 			$('#add').modal('close');
 			showModal(nome + " salvo na agenda!");
-			 updadeList();
+			updadeList();
 		} else {
 			showModal("Erro ao salvar!");
 		}
@@ -96,7 +92,7 @@ function validaEmail() {
 				let teste = $(e.target).find("div").last();
 				teste.addClass('red white-text invalid');
 				$("#novoContatao").addClass('disabled');
-			}else{
+			} else {
 				$("#novoContatao").removeClass('disabled');
 			}
 		})
@@ -105,7 +101,7 @@ function validaEmail() {
 }
 // atualiza pagina
 function updadeList() {
-	 location.reload();
+	location.reload();
 }
 // limpa os inputs
 function inputClear() {
@@ -118,16 +114,20 @@ function showModal(result) {
 }
 
 /*
-É responsavel de pegar uma lista de valores e inserir chips no input
- 1 ---> referencia do pai dos Chips iniciado para add Chips
- 2 ---> referencia de uma lista onde ira pegar os txt e transforma em chips
- # passar parametros em String que a funcao converte para obj jquery
-*/
-function inserirChipsParaAtualizar(classeChip,arrayId) {
+ * É responsavel de pegar uma lista de valores e inserir chips no input 1 --->
+ * referencia do pai dos Chips iniciado para add Chips 2 ---> referencia de uma
+ * lista onde ira pegar os txt e transforma em chips # passar parametros em
+ * String que a funcao converte para obj jquery
+ */
+function inserirChipsParaAtualizar(classeChip, arrayId) {
 	// percorre todos elementos e passa para um array
 	values = [];
 	arrayId.each(function(index, el) {
-		values.push({tag: $(el).text()});
+		values.push({
+			tag : $(el).text()
+		});
 	});
-	$(classeChip).material_chip({data: values});
+	$(classeChip).material_chip({
+		data : values
+	});
 }
