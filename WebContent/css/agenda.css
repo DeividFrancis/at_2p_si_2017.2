@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+.closeInput {
+	position: absolute;
+	top: 0;
+	right: 40px;
+	cursor: pointer;
+}
+
+.myBtnEdit {
+	position: absolute;
+	top: -88px;
+	right: 30px;
+}
+
+.myBtnDelete {
+	position: absolute;
+	top: -88px;
+	right: 90px
+}
