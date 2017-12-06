@@ -1,10 +1,10 @@
-	package controller.servlets;
+package controller.servlets;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/decide")
+@WebServlet(value={"/decide"})
 public class ControllerServlet extends GeralServlet {
 
 	/**
@@ -17,17 +17,23 @@ public class ControllerServlet extends GeralServlet {
 		String pagina = req.getParameter("pagina");
 
 		String className = "controller.servlets." + pagina;
-
-		// Cria classe e seta um obj do tipo
-		Class<?> klas = Class.forName(className);
-		GeralServlet servlet = (GeralServlet) klas.newInstance();
-
-		// Executa uma servlet que implemento de GeralServlet e retorna a pagina
-		// jsp e escolhi
-		String jsp = "WEB-INF/jsp/"+servlet.doExecute(req, res);
-
-		// Redirecion para uma pagina jsp
+		
+		 String jsp = "WEB-INF/jsp/";
+		try {
+			// Cria classe e seta um obj do tipo
+			Class<?> klas = Class.forName(className);
+			GeralServlet servlet = (GeralServlet) klas.newInstance();
+			
+			 // Executa uma servlet que implemento de GeralServlet e retorna a pagina
+			 // jsp e escolhi
+			jsp  =  jsp + servlet.doExecute(req, res);
+		} catch (Exception e) {
+			jsp = jsp + "error404.jsp";
+		}finally {
+			// Redirecion para uma pagina jsp
+		}
 		req.getRequestDispatcher(jsp).forward(req, res);
+
 
 		return "void";
 	}
